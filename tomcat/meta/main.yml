@@ -1,0 +1,24 @@
+---
+allow_duplicates: yes
+galaxy_info:
+  role_name: Role for tomcat installation
+  author: Rahul Mittal
+  description: Role for tomcat installation
+  company: Opstree Solutions
+  license: license (GPLv3)
+  min_ansible_version: 2.9
+  platforms:
+    - name: EL
+      versions:
+        - 8
+        - 7
+    - name: Ubuntu
+      versions:
+        - focal
+        - bionic
+
+  galaxy_tags:
+    - tomcat
+  dependencies:
+          - role: /home/ec2-user/roles/java
+
