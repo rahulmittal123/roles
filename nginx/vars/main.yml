@@ -1,0 +1,11 @@
+---
+# vars file for nginx
+
+page_title_el: Welcome to Enterprise Linux!!
+page_description_el:  This is my welcome page for Enterprise Linux.
+package_name:
+     - nginx
+my_service: nginx.service
+page_title_debian:  Welcome to Debian family!!
+page_description_debian:  This is my welcome page for Debian.
+

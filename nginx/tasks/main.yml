@@ -1,0 +1,11 @@
+---
+- name: To install nginx on EL
+  include_tasks: nginx-el.yml
+  when:
+    ansible_os_family == 'RedHat'
+
+- name: To install nginx on ubuntu
+  include_tasks: nginx-ubuntu.yml
+  when:
+    ansible_os_family == 'Debian'
+

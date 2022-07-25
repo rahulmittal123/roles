@@ -1,0 +1,25 @@
+# nginx instalaltion for ubuntu
+ - name: "install nginx"
+   apt:
+     name: "{{ package_name }}"
+     state: latest
+
+ - name: Apply Page Template
+   template:
+      src: index-debian.html.j2
+      dest: /var/www/html/index.nginx-debian.html
+   notify:
+   - restart nginx
+
+ - name: "start nginx service"
+   service:
+       name:  "{{ my_service }}"
+       state: started
+
+ - name: "show status of nginx"
+   shell: 'systemctl status nginx'
+   register: command_output
+
+ - debug:
+         var: command_output.stdout_lines
+

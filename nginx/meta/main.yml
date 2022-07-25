@@ -1,0 +1,19 @@
+galaxy_info:
+  author: Rahul Mittal
+  description: Role for nginx installation
+  company: opstree solutions
+  license: license (GPLv2)
+  min_ansible_version: 2.9
+  platforms:
+   - name: Ubuntu
+     versions:
+     - focal
+     - bionic
+   - name: EL
+     versions:
+     - 8
+     - 7
+     galaxy_tags:
+             - nginx
+
+  
