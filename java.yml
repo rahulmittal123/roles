@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  roles:
+    - role: /home/ec2-user/roles/java
+
+ 
+  become: true
