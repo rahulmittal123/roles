@@ -1,0 +1,9 @@
+---
+
+- hosts: all
+# vars:
+#     my_service: nginx
+  roles:
+    - role: /etc/ansible/roles/nginx
+ 
+  become: true

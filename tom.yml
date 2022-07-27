@@ -1,0 +1,11 @@
+---
+
+- hosts: servers
+# vars:
+#     my_service: nginx
+  roles:
+    - role: /etc/ansible/roles/tomcat_1
+
+  become: true
+  become_user: root
+  become_method: sudo
