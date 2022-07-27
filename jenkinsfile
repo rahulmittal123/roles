@@ -1,3 +1,4 @@
+properties([parameters([choice(choices: ['Nginx', 'Tomcat', 'Both', 'Java'], name: 'Roles'), choice(choices: ['Ubuntu', 'CentOS', 'Both'], name: 'OS')]), pipelineTriggers([githubPush()])])
 pipeline{
     agent any
     stages{
@@ -7,41 +8,58 @@ pipeline{
                  git 'https://github.com/rahulmittal123/roles.git'
             }
         }
-           stage('Wait for user to input text?') {
-            steps {
-               script {
-                 env.userInput = input(id: 'userInput', message: 'Which role you want to deploy?',
-                 parameters: [[$class: 'ChoiceParameterDefinition', defaultValue: 'strDef', 
-                    description:'describing choices', name:'Roles', choices: "Nginx\nTomcat\nBoth(Nginx|Tomcat)\nJava"]
-             ]) 
-
-            println(env.userInput); //Use this value to branch to different logic if needed
-        }
-    }
-
-}
         stage('Execute ansible playbook'){
             steps{
                  script {
-                    if (env.userInput == 'Nginx') 
+                    if (env.Roles == 'Nginx' && env.OS == 'Ubuntu') 
+                        {
+                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-ubuntu', playbook: 'site.yml'
+                        }
+                    if (env.Roles == 'Tomcat' && env.OS == 'Ubuntu') 
+                        {
+                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-ubuntu', playbook: 'tom.yml'
+                        }
+                    if (env.Roles == 'Both' && env.OS == 'Ubuntu') 
+                        {
+                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-ubuntu', playbook: 'both.yml'
+                        }
+                    if (env.Roles == 'Java' && env.OS == 'Ubuntu') 
+                        {
+                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-ubuntu', playbook: 'java.yml'
+                        }
+                    if (env.Roles == 'Nginx' && env.OS == 'CentOS') 
+                        {
+                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-centos', playbook: 'site.yml'
+                        }
+                    if (env.Roles == 'Tomcat' && env.OS == 'CentOS') 
+                        {
+                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-centos', playbook: 'tom.yml'
+                        }
+                    if (env.Roles == 'Both' && env.OS == 'CentOS') 
+                        {
+                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-centos', playbook: 'both.yml'
+                        }
+                    if (env.Roles == 'Java' && env.OS == 'CentOS') 
+                        {
+                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-centos', playbook: 'java.yml'
+                        }
+                    if (env.Roles == 'Nginx' && env.OS == 'Both') 
                         {
                         ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'site.yml'
                         }
-                    if (env.userInput == 'Tomcat') 
+                    if (env.Roles == 'Tomcat' && env.OS == 'Both') 
                         {
                         ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'tom.yml'
                         }
-                    if (env.userInput == 'Both') 
+                    if (env.Roles == 'Both' && env.OS == 'Both') 
                         {
                         ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'both.yml'
                         }
-                    if (env.userInput == 'Java') 
+                    if (env.Roles == 'Java' && env.OS == 'Both') 
                         {
                         ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'java.yml'
                         }
-                    else {
-                        sh "echo 'Wrong Input'"
-                        }
+                   
             }
         }
     }
