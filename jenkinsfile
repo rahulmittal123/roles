@@ -1,0 +1,49 @@
+pipeline{
+    agent any
+    stages{
+     
+        stage('SCM checkout'){
+            steps{
+                 git 'https://github.com/rahulmittal123/roles.git'
+            }
+        }
+           stage('Wait for user to input text?') {
+            steps {
+               script {
+                 env.userInput = input(id: 'userInput', message: 'Which role you want to deploy?',
+                 parameters: [[$class: 'ChoiceParameterDefinition', defaultValue: 'strDef', 
+                    description:'describing choices', name:'Roles', choices: "Nginx\nTomcat\nBoth(Nginx|Tomcat)\nJava"]
+             ]) 
+
+            println(env.userInput); //Use this value to branch to different logic if needed
+        }
+    }
+
+}
+        stage('Execute ansible playbook'){
+            steps{
+                 script {
+                    if (env.userInput == 'Nginx') 
+                        {
+                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'site.yml'
+                        }
+                    if (env.userInput == 'Tomcat') 
+                        {
+                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'tom.yml'
+                        }
+                    if (env.userInput == 'Both') 
+                        {
+                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'both.yml'
+                        }
+                    if (env.userInput == 'Java') 
+                        {
+                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'java.yml'
+                        }
+                    else {
+                        sh "echo 'Wrong Input'"
+                        }
+            }
+        }
+    }
+}
+}

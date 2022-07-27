@@ -2,7 +2,7 @@
 
 - hosts: all
   roles:
-    - role: /home/ec2-user/roles/java
+    - role: /etc/ansible/roles/java
 
  
   become: true
