@@ -1,0 +1,32 @@
+# -----------------------------------------------
+# {{ ansible_managed }}
+# -----------------------------------------------
+
+[Unit]
+Description=Tomcat Server
+After=network.target
+
+[Service]
+Type=simple
+
+Restart=always
+RestartSec=10s
+
+User={{ user_name }}
+Group={{ group_name }}
+
+# Set umask to disallow others to access logs, temp files etc.
+UMask=0027
+
+ExecStart=/usr/share/tomcat/bin/catalina.sh run
+
+ExecStop=/usr/share/tomcat/bin/catalina.sh stop 60
+
+# Grant ExecStop 60s + 10s tolerance
+TimeoutStopSec=70s
+
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
+
