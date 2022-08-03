@@ -1,4 +1,4 @@
-properties([parameters([choice(choices: ['Nginx', 'Tomcat', 'Both', 'Java', 'mysql', 'postgresql'], name: 'Roles'), choice(choices: ['Ubuntu', 'CentOS', 'Both'], name: 'OS')]), pipelineTriggers([githubPush()])])
+properties([parameters([choice(choices: ['Nginx', 'Tomcat', 'Both', 'Java'], name: 'Roles'), choice(choices: ['Ubuntu', 'CentOS', 'Both'], name: 'OS')]), pipelineTriggers([githubPush()])])
 pipeline{
     agent any
     stages{
@@ -59,30 +59,7 @@ pipeline{
                         {
                         ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'java.yml'
                         }
-                    if (env.Roles == 'mysql' && env.OS == 'Ubuntu') 
-                        {
-                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-ubuntu', playbook: 'mysql.yml'
-                        }
-                    if (env.Roles == 'postgresql' && env.OS == 'Ubuntu') 
-                        {
-                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-ubuntu', playbook: 'postgres.yml'
-                        }
-                    if (env.Roles == 'mysql' && env.OS == 'CentOS') 
-                        {
-                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-centos', playbook: 'mysql.yml'
-                        }
-                    if (env.Roles == 'postgresql' && env.OS == 'CentOS') 
-                        {
-                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-centos', playbook: 'postgres.yml'
-                        }
-                    if (env.Roles == 'mysql' && env.OS == 'Both') 
-                        {
-                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'mysql.yml'
-                        }
-                    if (env.Roles == 'postgresql' && env.OS == 'Both') 
-                        {
-                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory', playbook: 'postgres.yml'
-                        }
+                   
             }
         }
     }
