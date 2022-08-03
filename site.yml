@@ -2,6 +2,6 @@
 
 - hosts: all
   roles:
-    - role: /etc/ansible/roles/nginx
+    - role: nginx
  
   become: true

@@ -1,0 +1,20 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: mysql
+  author: Rahul Mittal
+  description: MySQL installation and configuration for RHEL/Ubuntu
+  company: OpsTree Solutions
+  license: "license (BSD, MIT)"
+  min_ansible_version: 2.9
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Ubuntu
+      versions:
+        - all
+  galaxy_tags:
+        - mysql

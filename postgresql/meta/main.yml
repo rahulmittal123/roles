@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: Rahul Mittal
+  description: Install and configure postgresql
+  company: Opstree Solutions
+
+  license: license (GPLv2)
+
+  min_ansible_version: 2.9
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Ubuntu
+      versions:
+        - focal
+        
+
+  galaxy_tags:
+    - postgres
+    

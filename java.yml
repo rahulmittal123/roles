@@ -2,7 +2,7 @@
 
 - hosts: all
   roles:
-    - role: /etc/ansible/roles/java
+    - role: java
 
  
   become: true

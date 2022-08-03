@@ -2,7 +2,7 @@
 
 - hosts: all
   roles:
-    - role: /etc/ansible/roles/tomcat_1
+    - role: tomcat_1
 
   become: true
   become_user: root
