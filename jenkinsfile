@@ -34,7 +34,7 @@ pipeline{
                         }
                     if (env.Roles == 'Tomcat' && env.OS == 'CentOS') 
                         {
-                        ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-centos', playbook: 'tom.yml'
+                        ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'inventory-centos', playbook: 'tom.yml'
                         }
                     if (env.Roles == 'Both' && env.OS == 'CentOS') 
                         {
