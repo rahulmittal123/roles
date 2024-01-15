@@ -29,8 +29,8 @@ pipeline{
                         }
                     if (env.Roles == 'Nginx' && env.OS == 'CentOS') 
                         {
-                        // ansiblePlaybook credentialsId: 'private-key-ec2user', disableHostKeyChecking: true, installation: 'ansible', inventory: 'inventory-centos', playbook: 'site.yml'
-                          ansiblePlaybook become: true, credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'inventory-centos', playbook: 'java.yml', sudo: true
+                        ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'inventory-centos', playbook: 'site.yml'
+                        //  ansiblePlaybook become: true, credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'inventory-centos', playbook: 'site.yml', sudo: true
                         }
                     if (env.Roles == 'Tomcat' && env.OS == 'CentOS') 
                         {
